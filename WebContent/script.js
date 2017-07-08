@@ -40,6 +40,8 @@ function join() {
 		
 		socket.onopen = function(event) {
 			subhead.style.backgroundColor = '#429890';
+			joinButton.style.visibility = 'hidden';
+			leaveButton.style.visibility = 'visible';
 			/*socketStatus.innerHTML = 'Connected to: ' + event.currentTarget.URL;
 			socketStatus.className = 'open';*/
 		};
@@ -54,6 +56,9 @@ function join() {
 		};
 		socket.onclose = function(event) {
 			subhead.style.backgroundColor = 'grey';
+			isConnected = false;
+			joinButton.style.visibility = 'visible';
+			leaveButton.style.visibility = 'hidden';
 			/*socketStatus.innerHTML = 'Disconnected from WebSocket.';
 			socketStatus.className = 'closed';*/
 		};
