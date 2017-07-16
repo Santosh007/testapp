@@ -11,6 +11,7 @@ const subhead = document.querySelector(".intro");
 
 var socket;
 var isConnected = false;
+var uname;
 
 var hst=  window.location.host;
 var pth= window.location.pathname;
@@ -21,7 +22,6 @@ leaveButton.style.visibility = 'hidden';
 // Join the conversation
 function join() {
 
-	let
 	uname = userName.value;
 	if (uname != "") {
 		let url = 'ws://'+hst+pth+uname;
@@ -38,9 +38,10 @@ function join() {
 
 		// on message:
 		socket.onmessage = function(event) {
-			var message = event.data;
-			originText.innerHTML += '<li class="received"><span>Received:</span>'
-					+ message + '</li>';
+			let message = event.data;
+			let obj = JSON.parse(message);
+			originText.innerHTML += '<li class="received"><div><span>'+obj.sender+'</span></div><div><span class="msgcontent">'
+					+ obj.content +'</span></div><div class="receivedtime"><span>'+obj.received+'</span></div></li>';
 			let nodes = document.querySelectorAll('.received');
 		    nodes[nodes.length-1].scrollIntoView();
 		};
@@ -75,9 +76,10 @@ function send() {
 	if(isConnected){
 	let textEnterd = testArea.value.trim();
 	if(textEnterd != ""){
-		socket.send(textEnterd);
-		originText.innerHTML += '<li class="sent"><span>you:</span>' + textEnterd
-				+ '</li>';
+		var msg = '{"content":"' + textEnterd + '", "sender":"' + uname + '", "received":"' + '"}';
+		socket.send(msg);
+		originText.innerHTML += '<li class="sent"><div><span>you:</span></div><div><span class="msgcontent">'+textEnterd
+				+ '</span></div></li>';
 		testArea.value = '';
 		let nodes = document.querySelectorAll('.sent');
 	    nodes[nodes.length-1].scrollIntoView();

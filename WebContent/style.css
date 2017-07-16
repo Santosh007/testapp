@@ -152,15 +152,27 @@ ul {
   	background-color: rgba(45, 179, 111, 0.35);
     column-span: initial;
     border-radius: 10px;
-    margin-left: 250px;
+    margin-left: 50%;
 }
 
 .received {
 	background-color: white;
     background-size: initial;
-    width: 250px;
+    width: 50%;
     border-radius: 10px;
     margin: 5px;
+}
+
+.receivedtime{
+	text-align: right;
+}
+
+.msgcontent{
+	color : black;
+	white-space: normal;
+    font: 13.3333px Arial;
+    text-transform: none;
+    display: initial;
 }
 
 ul li {
@@ -195,6 +207,7 @@ input {
 	border: 5px solid grey;
     border-radius: 10px;
     font-size: 1rem;
+    padding: 4px;
 }
 
 button {
