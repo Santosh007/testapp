@@ -37,6 +37,9 @@ public class MessageEncoder implements Encoder.Text<Message>{
 		return Json.createObjectBuilder().add("content", message.getMessageContent())
 		.add("sender", message.getMessageSender())
 		.add("received", message.getMessageReceivedAt())
+		.add("rcontent", message.getrContent())
+		.add("rsender", message.getrSender())
+		.add("rreceived", message.getrReceivedAt())
 		.build().toString();
 	}
 

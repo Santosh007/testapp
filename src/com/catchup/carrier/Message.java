@@ -14,16 +14,29 @@ public class Message {
 	private String messageSender;
 	private String messageContent;
 	private String messageReceivedAt;
+	private String rSender;
+	private String rContent;
+	private String rReceivedAt;
 	
 	public Message() {
 	}
-	public Message(String messageSender, String messageContent) {
-		this(messageSender, messageContent, LocalTime.now().toString());
+	public Message(String messageSender, String messageContent,String rSender,String rContent,String rReceivedAt) {
+		this(messageSender, messageContent, LocalTime.now().toString(),rSender,rContent,rReceivedAt);
 	}
-	public Message(String messageSender, String messageContent, String messageReceivedAt) {
+	/*public Message(String messageSender, String messageContent, String messageReceivedAt) {
 		this.messageSender = messageSender;
 		this.messageContent = messageContent;
 		this.messageReceivedAt = messageReceivedAt;
+	}*/
+	
+	public Message(String messageSender, String messageContent, String messageReceivedAt, String rSender,
+			String rContent, String rReceivedAt) {
+		this.messageSender = messageSender;
+		this.messageContent = messageContent;
+		this.messageReceivedAt = messageReceivedAt;
+		this.rSender = rSender;
+		this.rContent = rContent;
+		this.rReceivedAt = rReceivedAt;
 	}
 	public String getMessageSender() {
 		return messageSender;
@@ -43,6 +56,24 @@ public class Message {
 	}
 	public void setMessageReceivedAt(String messageReceivedAt) {
 		this.messageReceivedAt = messageReceivedAt;
+	}
+	public String getrSender() {
+		return rSender;
+	}
+	public void setrSender(String rSender) {
+		this.rSender = rSender;
+	}
+	public String getrContent() {
+		return rContent;
+	}
+	public void setrContent(String rContent) {
+		this.rContent = rContent;
+	}
+	public String getrReceivedAt() {
+		return rReceivedAt;
+	}
+	public void setrReceivedAt(String rReceivedAt) {
+		this.rReceivedAt = rReceivedAt;
 	}
 	@Override
 	public String toString() {

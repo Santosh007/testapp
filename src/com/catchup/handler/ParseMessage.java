@@ -18,26 +18,27 @@ import com.catchup.carrier.Message;
  * @author Santosh
  *
  */
-public class ParseMessage implements Decoder.Text<Message>{
+public class ParseMessage implements Decoder.Text<Message> {
 
 	@Override
 	public void destroy() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void init(EndpointConfig arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public Message decode(String messageString) throws DecodeException {
 		LocalTime lt = LocalTime.now();
 		JsonObject jsonObject = Json.createReader(new StringReader(messageString)).readObject();
-		Message message = new Message(jsonObject.getString("sender")
-				,jsonObject.getString("content"),lt.getHour()+":"+lt.getMinute());
+		Message message = new Message(jsonObject.getString("sender"), jsonObject.getString("content"),
+				lt.getHour() + ":" + lt.getMinute(), jsonObject.getString("rsender"), jsonObject.getString("rcontent"),
+				jsonObject.getString("rreceived"));
 		return message;
 	}
 

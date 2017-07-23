@@ -40,9 +40,22 @@ $(document).ready(function(){
 			socket.onmessage = function(event) {
 				let message = event.data;
 				let obj = JSON.parse(message);
-				let html = '<li><div class="received"><div><span>'+obj.sender+'</span></div><div><span class="msgcontent">'
-				+ obj.content +'</span><span class="receivedtime">'+obj.received+'</span></div></div></li>';
-				originText.append(html);
+				let liItem = $('<li class="received"></li>');
+				if(obj.rcontent!=null&&obj.rcontent!=""){
+					let rrec = $('<div class="receivedholder"><div><span>'+obj.rsender+'</span></div><div><span class="msgcontent">'+obj.rcontent
+							+ '</span><span class="receivedtime">'+obj.rreceived+'</span></div></div>').css({"background-color":"rgba(45, 179, 111, 0.35)","border-radius":"10px 10px 0px 0px"});
+					liItem.append(rrec);
+					let rec = $('<div class="receivedholder"><div><span>'+obj.sender+'</span></div><div><span class="msgcontent">'
+							+ obj.content +'</span><span class="receivedtime">'+obj.received+'</span></div></div>').css('border-radius','0px 0px 10px 10px');
+					liItem.append(rec);
+				}else{
+					let html = '<div class="receivedholder"><div><span>'+obj.sender+'</span></div><div><span class="msgcontent">'
+					+ obj.content +'</span><span class="receivedtime">'+obj.received+'</span></div></div>';
+					liItem.append(html);
+				}
+				/*let html = '<li><div class="received"><div><span>'+obj.sender+'</span></div><div><span class="msgcontent">'
+				+ obj.content +'</span><span class="receivedtime">'+obj.received+'</span></div></div></li>';*/
+				originText.append(liItem);
 				let nodes = document.querySelectorAll('.received');
 			    nodes[nodes.length-1].scrollIntoView();
 			    if(document.hidden){ 
@@ -76,20 +89,26 @@ $(document).ready(function(){
 		if(isConnected){
 			let textEnterd = testArea.val().trim();
 			if(textEnterd != ""){
-				var msg = '{"content":"' + textEnterd + '", "sender":"' + uname + '", "received":"' + '"}';
-				socket.send(msg);
+				var msg = "";
 				let liItem = $('<li class="sent"></li>');
 				if(replyhtml !== undefined && replyhtml != ""){
 					//replyhtml.removeClass('received').addClass('sentr');
-					liItem.append(replyhtml.removeClass('received').addClass('sentr'));
+					 let rsender = $(replyhtml.children()[0]).text();
+					 let sec = $(replyhtml.children()[1]);
+					 let rcontent = $(sec.children()[0]).text();
+					 let rreceived = $(sec.children()[1]).text();
+					liItem.append(replyhtml.removeClass('received').removeClass('receivedholder').addClass('sentr'));
 					let sent = $('<div class="holder"><div><span>you:</span></div><div><span class="msgcontent">'+textEnterd
 							+ '</span></div></div>').css('border-radius','0px 0px 10px 10px');
 					liItem.append(sent);
 					replyhtml = '';
+					msg = '{"content":"' + textEnterd + '", "sender":"' + uname + '", "received":"","rcontent":"'+rcontent+'","rsender":"'+rsender+'","rreceived":"'+rreceived+'"}';
 				}else{
 					liItem.append('<div class="holder"><div><span>you:</span></div><div><span class="msgcontent">'+textEnterd
 							+ '</span></div></div>');
+					msg = '{"content":"' + textEnterd + '", "sender":"' + uname + '", "received":" ","rcontent":"","rsender":"","rreceived":""}';
 				}
+				socket.send(msg);
 				/*let html = '<li><div class="sent"><div><span>you:</span></div><div><span class="msgcontent">'+textEnterd
 				+ '</span></div></div></li>';*/
 				originText.append(liItem);
