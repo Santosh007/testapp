@@ -30,6 +30,7 @@ public class CatchupEndpoint{
 		logger.info("--is session secure"+session.isSecure());
 		logger.debug("Connection created successfully");
 		session.getUserProperties().put("user", user);
+		logger.info("Max idle timeout"+session.getMaxIdleTimeout());
 		sessions.put(user, session);
 	}
 	
