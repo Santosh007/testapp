@@ -58,6 +58,14 @@ public class CatchupEndpoint{
 	@OnClose
 	public void  leaveConversation(Session session, 
             CloseReason reason){
+		/*if(session.isOpen()){
+			try {
+				session.close();
+			} catch (IOException e) {
+				logger.error("Session close failed"+e.getMessage());
+				//e.printStackTrace();
+			}
+		}*/
 	sessions.remove(session.getUserProperties().get("user").toString());
 	logger.info("Session closed with reason "+reason);
 	}

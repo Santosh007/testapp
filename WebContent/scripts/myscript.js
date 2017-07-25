@@ -18,6 +18,7 @@ $(document).ready(function(){
 	
 	var hst=  window.location.host;
 	var pth= window.location.pathname;
+	var proto = window.location.protocol;
 	
 	sendButton.css("display","none");
 	joinButton.css("visibility","visible");
@@ -27,7 +28,12 @@ $(document).ready(function(){
 		uname = userName.val();
 		byUser = false;
 		if(uname != ""){
-			let url = 'ws://'+hst+pth+uname;
+			let url = "";
+			if(proto == 'https:'){
+				url = 'wss://'+hst+pth+uname;
+			}else{
+				url = 'ws://'+hst+pth+uname;
+			}
 			socket = new WebSocket(url);
 			socket.onopen = function(event) {
 				subhead.css("background-color","#429890");

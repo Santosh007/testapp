@@ -269,7 +269,7 @@ button:hover {
     margin: 0 auto;
     max-width: 550px;
 }
-
+/*padding: 0 2em;*/
 .test-area {
     margin-bottom: 4em;
     padding: 0 2em;
@@ -312,7 +312,13 @@ button:hover {
     font-size: 3em;
     font-weight: bold;
 }
-
+/*--------------------------Emoji area------------------------*/
+.emoji-area{
+	max-width: 200px;
+	border: 5px solid grey;
+    border-radius: 10px;
+    float: right;
+}
 /* #join {
     padding: .5em 1em;
     font-size: 1.2em;
